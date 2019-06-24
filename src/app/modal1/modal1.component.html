@@ -1,0 +1,255 @@
+<div class="modalheader">
+    <span class="guidelines" ><b>Guidelines</b></span>
+    <button class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<!-- <nb-tabset>
+    <nb-tab tabTitle="Target Calendar Guidelines">
+        <div class="temp_style_TargetDetail"> 
+
+            <u><b>Target Calendar tab</b></u>
+            <ol type="1">
+                <li> By default previous months will be disabled. However, the last month alone will be enabled if its <b>GRACE PERIOD</b> 
+                is active (First 5 days of a month is a Grace period for the last month where in the use cases details meant for last 
+                month can be added/updated).  </li>
+                <li> When the user is trying to Add a new use case:</li>
+                <ol type="a">
+                    <li> Status -><b>'Not Started'</b> , users are only allowed to enter planned FTE for the use case</li>
+                    <li> Status -> <b>'In Progress'</b>, users are allowed to enter planned FTE number under current and future months only  and actuals
+                    for current month. Plan and Actual FTE for last month  will be enabled if its GRACE period is active.</li>
+                    <li> if the user is trying to add both planned and actual for the current month then it is considered to be retrospective entry
+                    and hence the planned FTE will be zeroed out. This entry will be considered as actuals reported without plan. </li>
+                    <li> Status -> <b>'Completed'</b>, only actuals can be entered for current month. If no actual is entered and status is <b>'Completed'</b> then
+                    it will not be allowed to save.</li>
+                    <li> Target FTE is the sum of all planned FTE and actual FTE in case of retrospective entry. Once saved the target FTE will not be
+                    changed at all.</li>
+                </ol>
+                <li> When the user is trying to edit an existing use case:</li>
+                <ol type="a">
+                    <li> Planned FTE column will be disabled and cannot be modified.</li>
+                    <li>FTE at Risk will be auto calculated for Last month after grace period and for current/Last month if an
+                    actual is entered. Remarks is mandatory for months where FTE at Risk is greater than 0.</li>
+                    <li> Status -><b>'Not Started'</b>, user will not be able to enter any actuals.</li>
+                    <li>Status changed from <b>'Not Started' -> 'In Progress'</b>, will allow the user to enter only the actuals for
+                    current month or for last month (if in grace period).</li>
+                    <li>Status changed to -> <b>'Not Started' or OnHold' or 'Canceled'</b>, if any actuals present for current or previous
+                    months then system wont  allow  the user to change the status. User either needs to put the status to <b>'In Progress'
+                    or to 'Completed'</b> in this scenario.</li>
+                    <li>Status -> <b>'On Hold' or 'Completed'</b>, FTE at risk is calculated for all the months.</li>
+                </ol>
+            </ol>
+        </div>
+    </nb-tab>
+    <nb-tab tabTitle="FTE Calculation Guidelines" >
+        <div class="temp_style_FTE_savings_calculation" >
+                <span class="exportTemplate">
+                    
+                            <button class="btn btn-hero-primary btn-tn "  >
+                                    Download Template
+                            </button>
+                </span>
+                <table class="FTE_savings_calculation_guidelines" style="pointer-events: none">
+                    <tr class="header1 FTE_savings_calculation_guidelines_th cellborder">
+                        <th class="cellborder">A</th>
+                        <th class="cellborder">B</th>
+                        <th class="cellborder">C</th>
+                        <th class="cellborder">D</th>
+                        <th class="cellborder">E</th>
+                        <th class="cellborder">F</th>
+                        <th class="cellborder"></th>
+                
+                    </tr>
+                    <tr class="header2 cellborder">
+                        <td colspan="7" >
+                            PU FTE Saving % achieved against the target
+                        </td>
+                    
+                    </tr>
+                    <tr class="header2 cellborder">
+                        <td class="cellborder">Scenario 1</td>
+                        <td class="cellborder"></td>
+                        <td class="cellborder"></td>
+                        <td class="cellborder"></td>
+                        <td class="cellborder"></td>
+                        <td class="cellborder"></td>
+                        <td class="last_column">Annuity FTE Savings</td>
+                    
+                    </tr>
+                    <tr class="subHeader cellborder">
+                        <td class="subhearderFirstColumn">Project Duration >= 1 yr  & repeated savings</td>
+                        <td class="cellborder">Effort Saved (x hrs)</td>
+                        <td class="cellborder">Unit of Duration (UOD)</td>
+                        <td class="cellborder">Unit of Duration (UOD) expressed in hrs</td>
+                        <td class="cellborder">Project  / Phase Duration </td>
+                        <td class="cellborder">"Project / Phase Duration  expressed in hrs =(E*D)"</td>
+                        <td class="cellborder">=Effort saved /UOD expressed in hrs =(B/D)</td>
+                    
+                    </tr>
+                    <tr class="cellborder">    
+                        <td class="cellborder"></td>
+                        <td class="cellborder">4</td>
+                        <td class="cellborder">day</td>
+                        <td class="cellborder">8</td>
+                        <td class="cellborder">NA</td>
+                        <td class="cellborder">NA</td>
+                        <td class="cellborder">0.50</td>
+                    
+                    </tr>
+                    <tr class="cellborder">   
+                        <td class="cellborder"></td>
+                        <td class="cellborder">20</td>
+                        <td class="cellborder">week</td>
+                        <td class="cellborder">40</td>
+                        <td class="cellborder">NA</td>
+                        <td class="cellborder">NA</td>
+                        <td class="cellborder">0.50</td>
+                    
+                    </tr>
+                    <tr class="cellborder">   
+                        <td class="cellborder"></td>
+                        <td class="cellborder">80</td>
+                        <td class="cellborder">month</td>
+                        <td class="cellborder">168</td>
+                        <td class="cellborder">NA</td>
+                        <td class="cellborder">NA</td>
+                        <td class="cellborder">0.48</td>
+                    
+                    </tr>
+                    <tr class="cellborder">     
+                        <td class="cellborder"></td>
+                        <td class="cellborder">250</td>
+                        <td class="cellborder">qtr</td>
+                        <td class="cellborder">504</td>
+                        <td class="cellborder">NA</td>
+                        <td class="cellborder">NA</td>
+                        <td class="cellborder">0.50</td>
+                    
+                    </tr>
+                    
+                    <tr class="cellborder">    
+                        <td class="cellborder"></td>
+                        <td class="cellborder">600</td>
+                        <td class="cellborder">Half yearly</td>
+                        <td class="cellborder">1008</td>
+                        <td class="cellborder">NA</td>
+                        <td class="cellborder">NA</td>
+                        <td class="cellborder">0.60</td>
+                        
+                    </tr>
+                    <tr class="header2 cellborder">
+                        <td class="cellborder">Scenario 2</td>
+                        <td class="cellborder"></td>
+                        <td class="cellborder"></td>
+                        <td class="cellborder"></td>
+                        <td class="cellborder"></td>
+                        <td class="cellborder"></td>
+                        <td class="cellborder"></td>
+                    
+                    </tr>
+                    <tr class="subHeader cellborder">
+                        <td class="cellborder">One time Savings</td>
+                        <td class="cellborder"></td>
+                        <td class="cellborder"></td>
+                        <td class="cellborder"></td>
+                        <td class="cellborder"></td>
+                        <td class="cellborder"></td>
+                        <td class="cellborder">"=(Effort saved /2016)=B/2016"</td>
+                    
+                    </tr>
+                    <tr class="cellborder">      
+                        <td class="cellborder"></td>
+                        <td class="cellborder">6</td>
+                        <td class="cellborder">day</td>
+                        <td class="cellborder">8</td>
+                        <td class="cellborder">200</td>
+                        <td class="cellborder">1600</td>
+                        <td class="cellborder">0.60</td>
+                    
+                    </tr>
+                    <tr class="cellborder">       
+                        <td class="cellborder"></td>
+                        <td class="cellborder">20</td>
+                        <td class="cellborder">week</td>
+                        <td class="cellborder">40</td>
+                        <td class="cellborder">8</td>
+                        <td class="cellborder">320</td>
+                        <td class="cellborder">0.08</td>
+                    
+                    </tr>
+                    <tr class="cellborder">      
+                        <td class="cellborder"></td>
+                        <td class="cellborder">80</td>
+                        <td class="cellborder">month</td>
+                        <td class="cellborder">168</td>
+                        <td class="cellborder">3</td>
+                        <td class="cellborder">504</td>
+                        <td class="cellborder">0.25</td>
+                    
+                    </tr>
+                    <tr class="header2 cellborder">
+                        <td class="cellborder">Scenario 3</td>
+                        <td class="cellborder"></td>
+                        <td class="cellborder"></td>
+                        <td class="cellborder"></td>
+                        <td class="cellborder"></td>
+                        <td class="cellborder"></td>
+                        <td class="cellborder"></td>
+                    
+                    </tr>
+                    <tr class="subHeader cellborder">
+                        <td class="cellborder">One time Savings</td>
+                        <td class="cellborder"></td>
+                        <td class="cellborder"></td>
+                        <td class="cellborder"></td>
+                        <td class="cellborder"></td>
+                        <td class="cellborder"></td>
+                        <td class="cellborder">"=(Effort saved /2016)=B/2016"</td>
+                    
+                    </tr>
+                    <tr class="cellborder">    
+                        <td class="cellborder"></td>
+                        <td class="cellborder">168</td>
+                        <td class="cellborder">N/A</td>
+                        <td class="cellborder">N/A</td>
+                        <td class="cellborder">N/A</td>
+                        <td class="cellborder">N/A</td>
+                        <td class="cellborder">0.08</td>
+                    
+                    </tr>
+                    <tr class="cellborder">    
+                        <td class="cellborder"></td>
+                        <td class="cellborder">400</td>
+                        <td class="cellborder">N/A</td>
+                        <td class="cellborder">N/A</td>
+                        <td class="cellborder">N/A</td>
+                        <td class="cellborder">N/A</td>
+                        <td class="cellborder">0.20</td>
+                    
+                    </tr>
+                    <tr class="cellborder">   
+                        <td class="cellborder"></td>
+                        <td class="cellborder">850</td>
+                        <td class="cellborder">N/A</td>
+                        <td class="cellborder">N/A</td>
+                        <td class="cellborder">N/A</td>
+                        <td class="cellborder">N/A</td>
+                        <td class="cellborder">0.42</td>
+                    
+                    </tr>
+                    <tr class="cellborder">  
+                        <td class="cellborder"></td>
+                        <td class="cellborder">1200</td>
+                        <td class="cellborder">N/A</td>
+                        <td class="cellborder">N/A</td>
+                        <td class="cellborder">N/A</td>
+                        <td class="cellborder"> N/A</td>
+                        <td class="cellborder">0.60</td>
+                    
+                    </tr>
+                
+                </table>
+        </div>
+    </nb-tab>
+</nb-tabset> -->
+
